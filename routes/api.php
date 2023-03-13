@@ -37,12 +37,18 @@ Route::get('versiculo/{id}', [\App\Http\Controllers\VersiculoController::class, 
 Route::put('versiculo/{id}', [\App\Http\Controllers\VersiculoController::class, 'update']);
 Route::delete('versiculo/{id}', [\App\Http\Controllers\VersiculoController::class, 'destroy']);*/
 
-Route::apiResources([
-    'testamento' => \App\Http\Controllers\TestamentoController::class,
-    'livro' => \App\Http\Controllers\LivroController::class,
-    'versiculo' => \App\Http\Controllers\VersiculoController::class,
+Route::group(['middleware' =>['auth:sanctum']], function() {
+    Route::apiResources([
+        'testamento' => \App\Http\Controllers\TestamentoController::class,
+        'livro' => \App\Http\Controllers\LivroController::class,
+        'versiculo' => \App\Http\Controllers\VersiculoController::class,
 
-]);
+    ]);
+});
+
+
+Route::post('register', [\App\Http\Controllers\AuthController::class, 'register']);
+Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

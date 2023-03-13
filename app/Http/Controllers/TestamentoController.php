@@ -32,6 +32,10 @@ class TestamentoController extends Controller
     {
         $testamento = Testamento::findOrFail($id);
         if ($testamento) {
+            $response = [
+                'testamento' => $testamento,
+                'livros' => $testamento->livros
+            ];
             return $testamento;
         }
         return response()->json([

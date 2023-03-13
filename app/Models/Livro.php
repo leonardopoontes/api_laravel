@@ -15,4 +15,9 @@ class Livro extends Model
       'abreviacao',
         'testamento_id'
     ];
+
+    public function testamento()
+    {
+        return $this->belongsTo(Testamento::class);
+    }
 }
